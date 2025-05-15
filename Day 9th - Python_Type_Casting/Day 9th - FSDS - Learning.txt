@@ -1,0 +1,84 @@
+Day 9th 
+--------
+
+Python Typecasting
+Introduce to Datastructures
+GitHub creation
+
+What is Interpreter?
+Interpreter - Execute the code line by line.
+compiler - Execute the code all at once.
+
+type casting
+
+=======
+
+datatypes
+
+integer int()
+float float()
+string str()
+Boolean bool()
+complex complex()
+
+==Python introduction completed
+== python variable completed
+== python data types completed
+
+--------------------
+We will convert one datatype to other types
+
+family() -- 0 argument
+family1(d,m) -- 2 arguments or 2 parameters
+family2(d,m,s) --3 arguments or 3 parameters
+
+# float datatype int type casting -- yes
+ complex datatype to int typecasting - No
+ Bool datatype to int type casting --yes
+ string datatype to int type casting
+ --  if user pass number then only we get output.
+ -- if user pass text as string then we wont get any output.
+
+#### from all other datatype to int possible except complex & string with text
+#### from all other datatype to float possible except complex & string with text
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
