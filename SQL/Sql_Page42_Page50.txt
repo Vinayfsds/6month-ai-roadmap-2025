@@ -1,0 +1,408 @@
+Arithmetic Operators
+-------------------------
+
++ - Addition
+- - Substraction
+* - Multiplication
+/ - Division
+
+mysql> select 10 + 20;
++---------+
+| 10 + 20 |
++---------+
+|      30 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select 10 * 20;
++---------+
+| 10 * 20 |
++---------+
+|     200 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select 10/5;
++--------+
+| 10/5   |
++--------+
+| 2.0000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select 10%2
+    -> ;
++------+
+| 10%2 |
++------+
+|    0 |
++------+
+1 row in set (0.00 sec)
+
+==================
+Comparision operators
+
+= - equals to
+!= - not equals to
+> - greater than
+< - less than
+>= - greater than equals to
+<= - less than equals to
+<> - not in
+======================
+
+mysql> Select 1 = 1;
++-------+
+| 1 = 1 |
++-------+
+|     1 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select 1 != 1;
++--------+
+| 1 != 1 |
++--------+
+|      0 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select 2 <> 1;
++--------+
+| 2 <> 1 |
++--------+
+|      1 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select 2 > 1;
++-------+
+| 2 > 1 |
++-------+
+|     1 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select 2 < 1;
++-------+
+| 2 < 1 |
++-------+
+|     0 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> Select 1>=1;
++------+
+| 1>=1 |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+mysql> Select 1<=1;
++------+
+| 1<=1 |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select 2 !< 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '!< 3' at line 1
+mysql> select 1!=1;
++------+
+| 1!=1 |
++------+
+|    0 |
++------+
+1 row in set (0.00 sec)
+
+=============================
+Logical Operators
+=============================
+AND: Combines conditions; all must be true for overall truth.
+OR: Combines conditions; at least one must be true for overall truth.
+NOT IN: Checks if a value is absent from a specified list.
+IN: Checks if a value is present within a specified list.
+BETWEEN: Tests if a value falls within an inclusive range.
+ALL: Compares a value against every value in a subquery.
+ANY: Compares a value against at least one value in a subquery.
+EXISTS: Checks if a subquery returns any rows; for existence.
+LIKE: Performs pattern matching using wildcards (%, _).
+IS NULL: Tests specifically for the absence of any value.
+UNIQUE: (Constraint) Ensures all values in a column are distinct.
+mysql> create database customers;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use customers;
+Database changed
+mysql> create table customer(Id int primary key, name varchar(50), age int, address varchar(100), Salary decimal(10,2));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from customer;
+Empty set (0.00 sec)
+
+mysql> insert into customer values(1,'Ramesh', 32, 'Ahmedabad', 2000),
+    -> (2,'Khilan', 25, 'Delhi', 1500);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer values(3,'Kaushik', 23, 'Kota', 2000),
+    -> (4,'Chaitali', 25, 'Mumbai', 6500);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer values(5,'Hardik', 27, 'Bhopal', 8500),
+    -> (6,'Komal', 22, 'MP', 4500),
+    -> (7,'Muffy', 24, 'Indore', 10000)
+    -> ;
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
+ERROR 1146 (42S02): Table 'customers.customers' doesn't exist
+mysql> select * from customer;
++----+----------+------+-----------+----------+
+| Id | name     | age  | address   | Salary   |
++----+----------+------+-----------+----------+
+|  1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |   25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |   23 | Kota      |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|  6 | Komal    |   22 | MP        |  4500.00 |
+|  7 | Muffy    |   24 | Indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where age=23 and salary > 1500;
++----+---------+------+---------+---------+
+| Id | name    | age  | address | Salary  |
++----+---------+------+---------+---------+
+|  3 | Kaushik |   23 | Kota    | 2000.00 |
++----+---------+------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where age <=25
+    -> ;
++----+----------+------+---------+----------+
+| Id | name     | age  | address | Salary   |
++----+----------+------+---------+----------+
+|  2 | Khilan   |   25 | Delhi   |  1500.00 |
+|  3 | Kaushik  |   23 | Kota    |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai  |  6500.00 |
+|  6 | Komal    |   22 | MP      |  4500.00 |
+|  7 | Muffy    |   24 | Indore  | 10000.00 |
++----+----------+------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where age> 20 and salary <=2000
+    -> .;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.' at line 2
+mysql> select * from customer where age> 20 and salary <=2000;
++----+---------+------+-----------+---------+
+| Id | name    | age  | address   | Salary  |
++----+---------+------+-----------+---------+
+|  1 | Ramesh  |   32 | Ahmedabad | 2000.00 |
+|  2 | Khilan  |   25 | Delhi     | 1500.00 |
+|  3 | Kaushik |   23 | Kota      | 2000.00 |
++----+---------+------+-----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where age> 20 OR salary <=2000;
++----+----------+------+-----------+----------+
+| Id | name     | age  | address   | Salary   |
++----+----------+------+-----------+----------+
+|  1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |   25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |   23 | Kota      |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|  6 | Komal    |   22 | MP        |  4500.00 |
+|  7 | Muffy    |   24 | Indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> Select * from cutomers where Age is not null;
+ERROR 1146 (42S02): Table 'customers.cutomers' doesn't exist
+mysql> Select * from cutomer where Age is not null;
+ERROR 1146 (42S02): Table 'customers.cutomer' doesn't exist
+mysql> Select * from customer where Age is not null;
++----+----------+------+-----------+----------+
+| Id | name     | age  | address   | Salary   |
++----+----------+------+-----------+----------+
+|  1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |   25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |   23 | Kota      |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|  6 | Komal    |   22 | MP        |  4500.00 |
+|  7 | Muffy    |   24 | Indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where name like '%K'
+    -> ;
++----+---------+------+---------+---------+
+| Id | name    | age  | address | Salary  |
++----+---------+------+---------+---------+
+|  3 | Kaushik |   23 | Kota    | 2000.00 |
+|  5 | Hardik  |   27 | Bhopal  | 8500.00 |
++----+---------+------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where name like 'K%';
++----+---------+------+---------+---------+
+| Id | name    | age  | address | Salary  |
++----+---------+------+---------+---------+
+|  2 | Khilan  |   25 | Delhi   | 1500.00 |
+|  3 | Kaushik |   23 | Kota    | 2000.00 |
+|  6 | Komal   |   22 | MP      | 4500.00 |
++----+---------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where age IN (25,27);
++----+----------+------+---------+---------+
+| Id | name     | age  | address | Salary  |
++----+----------+------+---------+---------+
+|  2 | Khilan   |   25 | Delhi   | 1500.00 |
+|  4 | Chaitali |   25 | Mumbai  | 6500.00 |
+|  5 | Hardik   |   27 | Bhopal  | 8500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where age between 25 and 27;
++----+----------+------+---------+---------+
+| Id | name     | age  | address | Salary  |
++----+----------+------+---------+---------+
+|  2 | Khilan   |   25 | Delhi   | 1500.00 |
+|  4 | Chaitali |   25 | Mumbai  | 6500.00 |
+|  5 | Hardik   |   27 | Bhopal  | 8500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select age from customer where exists (select age from customers where salary > 6500);
+ERROR 1146 (42S02): Table 'customers.customers' doesn't exist
+mysql> select age from customer where exists (select age from customer where salary > 6500);
++------+
+| age  |
++------+
+|   32 |
+|   25 |
+|   23 |
+|   25 |
+|   27 |
+|   22 |
+|   24 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer where age > all (select age from customer where salary > 6500);
++----+--------+------+-----------+---------+
+| Id | name   | age  | address   | Salary  |
++----+--------+------+-----------+---------+
+|  1 | Ramesh |   32 | Ahmedabad | 2000.00 |
++----+--------+------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select age from customer where salary > 6500;
++------+
+| age  |
++------+
+|   27 |
+|   24 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where age > all
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from customer where age > all (select age from customer where salary > 6500);
++----+--------+------+-----------+---------+
+| Id | name   | age  | address   | Salary  |
++----+--------+------+-----------+---------+
+|  1 | Ramesh |   32 | Ahmedabad | 2000.00 |
++----+--------+------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where age > any (select age from customer where salary > 6500);
++----+----------+------+-----------+---------+
+| Id | name     | age  | address   | Salary  |
++----+----------+------+-----------+---------+
+|  1 | Ramesh   |   32 | Ahmedabad | 2000.00 |
+|  2 | Khilan   |   25 | Delhi     | 1500.00 |
+|  4 | Chaitali |   25 | Mumbai    | 6500.00 |
+|  5 | Hardik   |   27 | Bhopal    | 8500.00 |
++----+----------+------+-----------+---------+
+4 rows in set (0.03 sec)
+
+
+============================
+SQL Expressions
+============================
+
+Numeric Expressions: Perform calculations, aggregates, and transformations on numerical data.
+Date Expressions: Handle date/time arithmetic, formatting, and component extraction.
+
+mysql> select * from customer;
++----+----------+------+-----------+----------+
+| Id | name     | age  | address   | Salary   |
++----+----------+------+-----------+----------+
+|  1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |   25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |   23 | Kota      |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|  6 | Komal    |   22 | MP        |  4500.00 |
+|  7 | Muffy    |   24 | Indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> Select count(*) from customer where age > 22;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select current_Timestamp;
++---------------------+
+| current_Timestamp   |
++---------------------+
+| 2025-06-23 10:52:22 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date()
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select current_date();
++----------------+
+| current_date() |
++----------------+
+| 2025-06-23     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from current_time;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_time' at line 1
+mysql> select * from current_timestamp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_timestamp' at line 1
+mysql> select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2025-06-23 10:53:55 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select current_time;
++--------------+
+| current_time |
++--------------+
+| 10:54:02     |
++--------------+
+1 row in set (0.00 sec)
+
+mysql>
