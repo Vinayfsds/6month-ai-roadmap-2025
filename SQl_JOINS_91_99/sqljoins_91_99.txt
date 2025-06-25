@@ -1,0 +1,225 @@
+SQL JOINS 
+-----------
+JOIN - Combine two or more different tables and get the column data.
+LEFT JOIN - Left Join gets the data of the both matched and unmatched of left table and in right table only the unmatched table.
+RIGHT JOIN - RIGHT Join gets the data of the both matched and unmatched of right table and in left table only the unmatched table.
+FULL JOIN - Not supported in Mysql. So, will use Union of both left and right join
+Self Join - Self join can be applied on same table considering alias name.
+CARTESIAN OR CROSS JOIN - It is a combination of (a X B ) tables columns.(gets all the data).
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| customers          |
+| friends            |
+| information_schema |
+| mysql              |
+| nit                |
+| performance_schema |
+| sakila             |
+| students           |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.17 sec)
+
+mysql> use customers;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_customers |
++---------------------+
+| customer            |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> create table orders(OID INT Not null primary key , Date datetime, Customer_ID int, Amount int);
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> select * from orders;
+Empty set (0.03 sec)
+
+mysql> select * from customer;
++----+----------+------+-----------+----------+
+| Id | name     | age  | address   | Salary   |
++----+----------+------+-----------+----------+
+|  1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |   25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |   23 | Kota      |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|  6 | Komal    |   22 | MP        |  4500.00 |
+|  7 | Muffy    |   24 | Indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> insert into orders values(102,'2009-10-08', 3, 3000),
+    -> (100,'2009-10-08', 3, 1500),(101, '2009-11-20', 2, 1560),
+    -> (103, '2008-05-20', 4, 2060);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from orders;
++-----+---------------------+-------------+--------+
+| OID | Date                | Customer_ID | Amount |
++-----+---------------------+-------------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |
++-----+---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select ID, Name, Amount From Customers, Orders
+    -> where customers.Id = Orders.OID ;
+ERROR 1146 (42S02): Table 'customers.customers' doesn't exist
+mysql> select ID, Name, Amount From Customer, Orders
+    -> where customer.Id = Orders.OID ;
+Empty set (0.00 sec)
+
+mysql> select ID, Name, Amount From Customer, Orders
+    -> where customers.Id = Orders.Customer_ID ;
+ERROR 1054 (42S22): Unknown column 'customers.Id' in 'where clause'
+mysql> select ID, Name, Amount From Customer, Orders
+    -> where customer.Id = Orders.Customer_Id ;
++----+----------+--------+
+| ID | Name     | Amount |
++----+----------+--------+
+|  3 | Kaushik  |   1500 |
+|  2 | Khilan   |   1560 |
+|  3 | Kaushik  |   3000 |
+|  4 | Chaitali |   2060 |
++----+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Select ID, NAME, AMOUNT,DATE 
+    -> FROM CUSTOMER
+    -> INNER JOIN ORDERS
+    -> ON CUSTOMER.ID = ORDERS.Customer_id;
++----+----------+--------+---------------------+
+| ID | NAME     | AMOUNT | DATE                |
++----+----------+--------+---------------------+
+|  3 | Kaushik  |   1500 | 2009-10-08 00:00:00 |
+|  2 | Khilan   |   1560 | 2009-11-20 00:00:00 |
+|  3 | Kaushik  |   3000 | 2009-10-08 00:00:00 |
+|  4 | Chaitali |   2060 | 2008-05-20 00:00:00 |
++----+----------+--------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> --Left Join
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--Left Join' at line 1
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER LEFT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
++----+----------+--------+---------------------+
+| ID | NAME     | AMOUNT | DATE                |
++----+----------+--------+---------------------+
+|  1 | Ramesh   |   NULL | NULL                |
+|  2 | Khilan   |   1560 | 2009-11-20 00:00:00 |
+|  3 | Kaushik  |   3000 | 2009-10-08 00:00:00 |
+|  3 | Kaushik  |   1500 | 2009-10-08 00:00:00 |
+|  4 | Chaitali |   2060 | 2008-05-20 00:00:00 |
+|  5 | Hardik   |   NULL | NULL                |
+|  6 | Komal    |   NULL | NULL                |
+|  7 | Muffy    |   NULL | NULL                |
++----+----------+--------+---------------------+
+8 rows in set (0.00 sec)
+
+--RIGHT JOIN
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER RIGHTJOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID' at line 1
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER RIGHT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
++------+----------+--------+---------------------+
+| ID   | NAME     | AMOUNT | DATE                |
++------+----------+--------+---------------------+
+|    3 | Kaushik  |   1500 | 2009-10-08 00:00:00 |
+|    2 | Khilan   |   1560 | 2009-11-20 00:00:00 |
+|    3 | Kaushik  |   3000 | 2009-10-08 00:00:00 |
+|    4 | Chaitali |   2060 | 2008-05-20 00:00:00 |
++------+----------+--------+---------------------+
+4 rows in set (0.00 sec)
+
+
+--FULL JOIN
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER FULL JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMER.ID' in 'on clause'
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER FULL JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMER.ID' in 'on clause'
+mysql> SELECT * from CUSTOMER;
++----+----------+------+-----------+----------+
+| Id | name     | age  | address   | Salary   |
++----+----------+------+-----------+----------+
+|  1 | Ramesh   |   32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |   25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |   23 | Kota      |  2000.00 |
+|  4 | Chaitali |   25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |   27 | Bhopal    |  8500.00 |
+|  6 | Komal    |   22 | MP        |  4500.00 |
+|  7 | Muffy    |   24 | Indore    | 10000.00 |
++----+----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER FULL JOIN ORDERS ON CUSTOMER.Id = ORDERS.CUSTOMER_ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMER.Id' in 'on clause'
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER FULL OUTER JOIN ORDERS ON CUSTOMER.Id = ORDERS.CUSTOMER_ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OUTER JOIN ORDERS ON CUSTOMER.Id = ORDERS.CUSTOMER_ID' at line 1
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER FULL JOIN ORDERS ON CUSTOMER.Id = ORDERS.CUSTOMER_ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMER.Id' in 'on clause'
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER LEFT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID
+    -> UNION
+    -> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER RIGHT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
++------+----------+--------+---------------------+
+| ID   | NAME     | AMOUNT | DATE                |
++------+----------+--------+---------------------+
+|    1 | Ramesh   |   NULL | NULL                |
+|    2 | Khilan   |   1560 | 2009-11-20 00:00:00 |
+|    3 | Kaushik  |   3000 | 2009-10-08 00:00:00 |
+|    3 | Kaushik  |   1500 | 2009-10-08 00:00:00 |
+|    4 | Chaitali |   2060 | 2008-05-20 00:00:00 |
+|    5 | Hardik   |   NULL | NULL                |
+|    6 | Komal    |   NULL | NULL                |
+|    7 | Muffy    |   NULL | NULL                |
++------+----------+--------+---------------------+
+8 rows in set (0.04 sec)
+
+-- SELF JOIN
+mysql> SELECT a.ID, b.Name, a.SALARY FROM CUSTOMER a, CUSTOMER b WHERE a.SALARY < b.SALARY;
++----+----------+---------+
+| ID | Name     | SALARY  |
++----+----------+---------+
+|  2 | Ramesh   | 1500.00 |
+|  2 | Kaushik  | 1500.00 |
+|  6 | Chaitali | 4500.00 |
+|  3 | Chaitali | 2000.00 |
+|  2 | Chaitali | 1500.00 |
+|  1 | Chaitali | 2000.00 |
+|  6 | Hardik   | 4500.00 |
+|  4 | Hardik   | 6500.00 |
+|  3 | Hardik   | 2000.00 |
+|  2 | Hardik   | 1500.00 |
+|  1 | Hardik   | 2000.00 |
+|  3 | Komal    | 2000.00 |
+|  2 | Komal    | 1500.00 |
+|  1 | Komal    | 2000.00 |
+|  6 | Muffy    | 4500.00 |
+|  5 | Muffy    | 8500.00 |
+|  4 | Muffy    | 6500.00 |
+|  3 | Muffy    | 2000.00 |
+|  2 | Muffy    | 1500.00 |
+|  1 | Muffy    | 2000.00 |
++----+----------+---------+
+20 rows in set (0.00 sec)
+
+--CROSS JOIN
+mysql> SELECT ID, NAME, AMOUNT, DATE FROM CUSTOMER CROSS JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMER_ID;
++----+----------+--------+---------------------+
+| ID | NAME     | AMOUNT | DATE                |
++----+----------+--------+---------------------+
+|  3 | Kaushik  |   1500 | 2009-10-08 00:00:00 |
+|  2 | Khilan   |   1560 | 2009-11-20 00:00:00 |
+|  3 | Kaushik  |   3000 | 2009-10-08 00:00:00 |
+|  4 | Chaitali |   2060 | 2008-05-20 00:00:00 |
++----+----------+--------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> notee
