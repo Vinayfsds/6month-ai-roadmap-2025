@@ -8,7 +8,7 @@ import streamlit as st
 import time
 
 # configure genai with your API key. We can generate the API key from Google AI studio.
-genai.configure(api_key="AIzaSyBmZliWsgVpJkGYTtXD26ubt2HN0rsixoM") # Replace "YOUR_API_KEY" with your actual API key
+genai.configure(api_key=<API-KEY) # Replace "YOUR_API_KEY" with your actual API key
 
 #Using the gemini model to generate content based on a question prompt.(This is a text based model)
 model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17") # Corrected model name
