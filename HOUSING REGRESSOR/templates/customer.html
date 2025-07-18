@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 Potential Home Buyers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+        .header-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+        .content-section {
+            padding: 2rem;
+        }
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .customer-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .customer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .customer-header {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .customer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+        }
+        .customer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        .customer-status {
+            background: #27ae60;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .customer-body {
+            padding: 1.5rem;
+        }
+        .customer-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .info-item {
+            text-align: center;
+        }
+        .info-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .info-value {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .customer-preferences {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        .preferences-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .preference-tag {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #2c3e50;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+            display: inline-block;
+        }
+        .predict-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+        .btn-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: white;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1rem;
+            }
+            .customer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="main-container">
+            <div class="header-section">
+                <h1 class="mb-3">
+                    <i class="fas fa-users me-3"></i>
+                    Potential Home Buyers
+                </h1>
+                <p class="mb-0 fs-5">Meet our customers looking for their dream homes</p>
+            </div>
+            
+            <div class="content-section">
+                <div class="customer-grid">
+                    <!-- Customer 1 -->
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="customer-name">Sarah Johnson</div>
+                            <span class="customer-status">Active Buyer</span>
+                        </div>
+                        <div class="customer-body">
+                            <div class="customer-info">
+                                <div class="info-item">
+                                    <div class="info-label">Annual Income</div>
+                                    <div class="info-value">$85,000</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Budget Range</div>
+                                    <div class="info-value">$300K-400K</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Family Size</div>
+                                    <div class="info-value">4 Members</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">Suburban</div>
+                                </div>
+                            </div>
+                            <div class="customer-preferences">
+                                <div class="preferences-title">
+                                    <i class="fas fa-heart"></i>
+                                    Preferences
+                                </div>
+                                <span class="preference-tag">3+ Bedrooms</span>
+                                <span class="preference-tag">Modern Kitchen</span>
+                                <span class="preference-tag">Good Schools</span>
+                                <span class="preference-tag">Garage</span>
+                            </div>
+                            <button class="predict-btn">
+                                <i class="fas fa-calculator me-2"></i>
+                                Predict Price for Sarah
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer 2 -->
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="customer-name">Michael Chen</div>
+                            <span class="customer-status">Active Buyer</span>
+                        </div>
+                        <div class="customer-body">
+                            <div class="customer-info">
+                                <div class="info-item">
+                                    <div class="info-label">Annual Income</div>
+                                    <div class="info-value">$120,000</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Budget Range</div>
+                                    <div class="info-value">$450K-600K</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Family Size</div>
+                                    <div class="info-value">2 Members</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">Urban</div>
+                                </div>
+                            </div>
+                            <div class="customer-preferences">
+                                <div class="preferences-title">
+                                    <i class="fas fa-heart"></i>
+                                    Preferences
+                                </div>
+                                <span class="preference-tag">City Center</span>
+                                <span class="preference-tag">High-rise</span>
+                                <span class="preference-tag">Gym Access</span>
+                                <span class="preference-tag">Public Transport</span>
+                            </div>
+                            <button class="predict-btn">
+                                <i class="fas fa-calculator me-2"></i>
+                                Predict Price for Michael
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer 3 -->
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <i class="fas fa-female"></i>
+                            </div>
+                            <div class="customer-name">Emily Rodriguez</div>
+                            <span class="customer-status">Interested</span>
+                        </div>
+                        <div class="customer-body">
+                            <div class="customer-info">
+                                <div class="info-item">
+                                    <div class="info-label">Annual Income</div>
+                                    <div class="info-value">$95,000</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Budget Range</div>
+                                    <div class="info-value">$350K-450K</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Family Size</div>
+                                    <div class="info-value">3 Members</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">Suburban</div>
+                                </div>
+                            </div>
+                            <div class="customer-preferences">
+                                <div class="preferences-title">
+                                    <i class="fas fa-heart"></i>
+                                    Preferences
+                                </div>
+                                <span class="preference-tag">Garden</span>
+                                <span class="preference-tag">Quiet Area</span>
+                                <span class="preference-tag">2+ Bedrooms</span>
+                                <span class="preference-tag">Pet Friendly</span>
+                            </div>
+                            <button class="predict-btn">
+                                <i class="fas fa-calculator me-2"></i>
+                                Predict Price for Emily
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer 4 -->
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="customer-name">The Williams Family</div>
+                            <span class="customer-status">Active Buyer</span>
+                        </div>
+                        <div class="customer-body">
+                            <div class="customer-info">
+                                <div class="info-item">
+                                    <div class="info-label">Annual Income</div>
+                                    <div class="info-value">$150,000</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Budget Range</div>
+                                    <div class="info-value">$500K-700K</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Family Size</div>
+                                    <div class="info-value">6 Members</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">Suburban</div>
+                                </div>
+                            </div>
+                            <div class="customer-preferences">
+                                <div class="preferences-title">
+                                    <i class="fas fa-heart"></i>
+                                    Preferences
+                                </div>
+                                <span class="preference-tag">4+ Bedrooms</span>
+                                <span class="preference-tag">Large Kitchen</span>
+                                <span class="preference-tag">Backyard</span>
+                                <span class="preference-tag">Near Schools</span>
+                            </div>
+                            <button class="predict-btn">
+                                <i class="fas fa-calculator me-2"></i>
+                                Predict Price for Williams
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer 5 -->
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="customer-name">David Thompson</div>
+                            <span class="customer-status">First-time Buyer</span>
+                        </div>
+                        <div class="customer-body">
+                            <div class="customer-info">
+                                <div class="info-item">
+                                    <div class="info-label">Annual Income</div>
+                                    <div class="info-value">$65,000</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Budget Range</div>
+                                    <div class="info-value">$200K-300K</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Family Size</div>
+                                    <div class="info-value">1 Member</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">Urban</div>
+                                </div>
+                            </div>
+                            <div class="customer-preferences">
+                                <div class="preferences-title">
+                                    <i class="fas fa-heart"></i>
+                                    Preferences
+                                </div>
+                                <span class="preference-tag">Studio/1BR</span>
+                                <span class="preference-tag">Low Maintenance</span>
+                                <span class="preference-tag">Good Investment</span>
+                                <span class="preference-tag">Near Work</span>
+                            </div>
+                            <button class="predict-btn">
+                                <i class="fas fa-calculator me-2"></i>
+                                Predict Price for David
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer 6 -->
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="customer-name">Lisa & Mark Davis</div>
+                            <span class="customer-status">Newlyweds</span>
+                        </div>
+                        <div class="customer-body">
+                            <div class="customer-info">
+                                <div class="info-item">
+                                    <div class="info-label">Annual Income</div>
+                                    <div class="info-value">$110,000</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Budget Range</div>
+                                    <div class="info-value">$400K-500K</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Family Size</div>
+                                    <div class="info-value">2 Members</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">Suburban</div>
+                                </div>
+                            </div>
+                            <div class="customer-preferences">
+                                <div class="preferences-title">
+                                    <i class="fas fa-heart"></i>
+                                    Preferences
+                                </div>
+                                <span class="preference-tag">2-3 Bedrooms</span>
+                                <span class="preference-tag">Open Floor Plan</span>
+                                <span class="preference-tag">Move-in Ready</span>
+                                <span class="preference-tag">Safe Neighborhood</span>
+                            </div>
+                            <button class="predict-btn">
+                                <i class="fas fa-calculator me-2"></i>
+                                Predict Price for Davis Couple
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="/" class="btn-back">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Predictor
+                    </a>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Click on any customer's predict button to get personalized house price predictions
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
